@@ -484,8 +484,8 @@ public class 类092 extends Fragment {
                         .setPositiveButton(confirm ? "Use passphrase" : "Restore", null)
                         .create();
         dialog.setOnShowListener(shown -> {
-            if (shown.getWindow() != null) {
-                shown.getWindow().setSoftInputMode(
+            if (dialog.getWindow() != null) {
+                dialog.getWindow().setSoftInputMode(
                         android.view.WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
             }
         });

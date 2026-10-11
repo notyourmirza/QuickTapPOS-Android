@@ -260,8 +260,8 @@ public final class 类006 {
                 byte[] remote = download(token, id);
                 File restored;
                 try {
-                    restored = BackupCrypto.decrypt(
-                            new File(app.getCacheDir(), "quicktap_restore.db"), remote, passphrase);
+                    restored = new File(app.getCacheDir(), "quicktap_restore.db");
+                    BackupCrypto.decrypt(restored, remote, passphrase);
                 } catch (BackupCrypto.PassphraseRequiredException needsPassphrase) {
                     fail(app, callback, "This backup is protected by a passphrase. "
                             + "Type it in the backup dialog and try again.");
@@ -314,14 +314,16 @@ public final class 类006 {
     }
 
     public static File validateAndDecryptSnapshot(Context context, byte[] payload) throws Exception {
-        return BackupCrypto.decrypt(new File(context.getCacheDir(), "quicktap_restore.db"),
-                payload, null);
+        File target = new File(context.getCacheDir(), "quicktap_restore.db");
+        BackupCrypto.decrypt(target, payload, null);
+        return target;
     }
 
     public static File validateAndDecryptSnapshot(Context context, byte[] payload,
                                                    @Nullable String passphrase) throws Exception {
-        return BackupCrypto.decrypt(new File(context.getCacheDir(), "quicktap_restore.db"),
-                payload, passphrase);
+        File target = new File(context.getCacheDir(), "quicktap_restore.db");
+        BackupCrypto.decrypt(target, payload, passphrase);
+        return target;
     }
 
     /** True when a saved file can only be opened with a passphrase. */
